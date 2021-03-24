@@ -14,41 +14,28 @@ class User(db.Model , UserMixin):
     lastname = db.Column(db.String(150))
     
 
+    # pseudo columns
     rooms = db.relationship("Room" , backref = "user")
     participants = db.relationship("Participant" , backref = "user")
     messages = db.relationship("Message" , backref = "user")
-    #sudo coloumns in Room , Participant , Message
-    # rooms_userid = db.relationship('Room',backref=db.backref('user-id'))
-    # participants_userid = db.relationship('Participant',backref=db.backref('user-id'))
-    # message_userid = db.relationship('Message' , backref = db.backref('user-id'))
-
-
+    
     # def __repr__(self):
     #     return f"User('{self.username}','{self.userEmail}','{self.image_file}')"
-
-    
-
-    
 
 
 class Room(db.Model):
     id = db.Column(db.Integer , primary_key = True)
     roomid = db.Column(db.String(150) , unique = True)
-    
     userid = db.Column(db.String(150),db.ForeignKey('user.id'))
 
+    # pseudo columns
     participants = db.relationship("Participant" , backref = "room")
     messages = db.relationship("Message" , backref = "room")
-
-    #sudo coloumns in Participant , Message
-    # participants_roomid = db.relationship('Participant',backref=db.backref('room-id'))
-    # message_roomid = db.relationship('Message' , backref = db.backref('user-id'))
 
 
 
 class Participant(db.Model):
     id = db.Column(db.Integer , primary_key = True)
-
     userid = db.Column(db.String(150),db.ForeignKey('user.id'))
     roomid = db.Column(db.String(150),db.ForeignKey('room.roomid'))
 
@@ -56,7 +43,6 @@ class Message(db.Model):
     id = db.Column(db.Integer , primary_key = True)
     date = db.Column(db.DateTime(timezone=True), default = func.now())
     message = db.Column(db.String(10000))
-
     userid = db.Column(db.String(150),db.ForeignKey('user.id'))
     roomid = db.Column(db.String(150),db.ForeignKey('room.roomid'))
     

@@ -65,6 +65,13 @@ For database
 # Part 3
 ## Creating database
 
+
+## Database Schema
+
+![](images/02.png)
+
+
+<br>
 <br>
 
 ## Database Model:
