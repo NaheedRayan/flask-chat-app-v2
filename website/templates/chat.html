@@ -3,10 +3,298 @@
 
 {% block title %}Chat{% endblock %}
 
+{% block headlink %}
 
+<link rel='stylesheet' href="{{url_for('static' , filename='chat-style.css')}}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=B612">
+
+{% endblock %}
 <!-- Content block from base.html -->
 {% block content %}
 
-<h1>This is Chat page</h1>
+
+<div class='left-navbar' id='left-navbar'>
+    <div class='open_button' id='open_button'><b>&gt;</b></div>
+    <div class='close_button' id='close_button'><b>&lt;</b></div>
+
+    <div class='room-name' id='room-name'>
+        {%if room_name %}
+            <span>{{room_name.roomid }}</span><br>
+
+        {% else %}
+            <span>Room name</span><br>
+        {% endif %}
+    </div>
+
+    
+
+    <div class='groupbox' id='groupbox'>
+        <div class='Chat-Groups' id='Chat-Groups'>Group Chat</div>
+
+    </div>
+
+    <div class='searchbox' id='searchbox'>
+        <input class='search' type="text" id="search" placeholder="Search">
+        
+        <div class='option' id='option'>
+            <a href='/options'>
+            <svg class="svg-icon" viewBox="0 0 20 20">
+                <path d="M14.613,10c0,0.23-0.188,0.419-0.419,0.419H10.42v3.774c0,0.23-0.189,0.42-0.42,0.42s-0.419-0.189-0.419-0.42v-3.774H5.806c-0.23,0-0.419-0.189-0.419-0.419s0.189-0.419,0.419-0.419h3.775V5.806c0-0.23,0.189-0.419,0.419-0.419s0.42,0.189,0.42,0.419v3.775h3.774C14.425,9.581,14.613,9.77,14.613,10 M17.969,10c0,4.401-3.567,7.969-7.969,7.969c-4.402,0-7.969-3.567-7.969-7.969c0-4.402,3.567-7.969,7.969-7.969C14.401,2.031,17.969,5.598,17.969,10 M17.13,10c0-3.932-3.198-7.13-7.13-7.13S2.87,6.068,2.87,10c0,3.933,3.198,7.13,7.13,7.13S17.13,13.933,17.13,10"></path>
+            </svg>
+            </a>
+        </div>
+        
+
+    </div>
+    <ul class='left-navbar-nav'>
+
+        {% for room in rooms%}
+            <li class='left-nav-item'>
+                <a href="/chat/{{room.roomid}}" class="left-nav-link" >
+                    <span class='link-text'>&#65283;&nbsp;{{room.roomname}}</span>
+                </a>
+            </li>
+        {% endfor %}
+
+
+
+    </ul>
+
+</div>
+
+
+
+
+<main class='main-container'>
+
+
+
+    <!-- <div class='room-name' id='room-name'>
+
+        <span>Soccer gang: 4/56</span><br>
+    </div> -->
+
+    <div class='chat-area' id='chat-area'>
+
+        
+        
+        
+        {% for message in messages %}
+                
+            <!-- here i had to use filter to compare both types as string -->
+            {% if message.userid | string() == user.id | string() %}
+                <div class='parent-container-right' id='parent-container-right'>
+                    <div class='username' id='username'><b>{{message.username}}</b>&nbsp;&nbsp;{{message.date}}</div>
+                    <div class="container darker">
+                        <span>{{message.message}}</span>
+                    </div>
+                </div>
+            {% else %}
+                <div class=parent-container id='parent-container'>
+                    <div class='username' id='username'><b>{{message.username}}</b>&nbsp;&nbsp;{{message.date}}</div>
+                    <div class="container">
+                        <span>{{message.message}}</span>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor%}
+        <!-- <div class=parent-container id='parent-container'>
+            <div class='username' id='username'><b>Spiderman 11:26 AM</b></div>
+            <div class="container">
+                <span>Hello.Naheed How are you today?</span>
+            </div>
+        </div>
+
+        <div class='parent-container-right' id='parent-container-right'>
+            <div class='username' id='username'><b>Naheed 11:28 AM</b></div>
+            <div class="container darker">
+                <span>Hey! I'm fine. Thanks for asking!I hope u are well.I am thinking of fun.</span>
+            </div>
+        </div>-->
+        
+
+
+
+        <!-- This div is given id for appending the incoming messages -->
+        <div id="messages" ></div>
+
+    </div>
+    <form class='message_input_form' id="message_input_form">
+        <input class='message_input' type="text" id="message_input" placeholder="Input your message here">
+        <button class='message_input_button' type="submit"><b>Send</b></button>
+    </form>
+
+
+
+</main>
+
+
+<!-- This script is for socketio connection and sending and receiving data -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.5/socket.io.min.js"></script>
+<script>
+    // here it will connect automatically with the server. The above examples can also be used.
+    // after connecting it will call a join room event in the app.py file and sends data.
+    var socket = io()
+
+
+
+    // if the room_id is not empty
+    if('{{room_id}}')
+    {
+        socket.on('connect', function () {
+            socket.emit('join_room', {
+                username: "{{ user.firstname }}",
+                room: '{{room_id|string()}}'
+            });
+
+            // console.log(io.sockets.room.get('2').length)
+
+
+            // if someone writes something we will receive the message and call the send_message event.
+            let message_input = document.getElementById('message_input');
+            
+            // for stopping the default function of the submit button and emmiting it in
+            // the send_message event
+            document.getElementById('message_input_form').onsubmit = function (e) {
+                e.preventDefault();
+                let message = message_input.value.trim();
+                if (message.length) {
+                    socket.emit('send_message', {
+                        username: "{{ user.firstname  |string() }}",
+                        room: "{{ room_id |string() }}",
+                        message: message
+                    })
+                }
+                // reseting the input value
+                message_input.value = '';
+                message_input.focus();
+
+                // for getting the time
+                var d = new Date().toLocaleTimeString();
+                 // creating a new node and appending innerHTML in the 'messages' div
+                const newNode = document.createElement('div');
+                // newNode.innerHTML = `<b>${data.username}</b> has joined the room`;
+
+                newNode.innerHTML = `
+                <div class='parent-container-right' id='parent-container-right'>
+                        <div class='username' id='username'><b>{{ user.firstname }}</b> ${d}</div>
+                        <div class="container darker">
+                            <span>${message}</span>
+                        </div>
+                </div>
+                `;
+                document.getElementById('messages').appendChild(newNode);
+
+                            // reseting the input value
+                message_input.value = '';
+                message_input.focus();
+
+                // for focusing to the bottom of the page
+                var scrollingElement = (document.scrollingElement || document.body);
+                scrollingElement.scrollTop = scrollingElement.scrollHeight;
+            }
+        });
+
+        
+    }
+
+    // for getting the join room announcement
+    socket.on('join_room_announcement', function (data) {
+        // console.log(data);
+        
+        // we wiil append inner html in other users
+        if (data.username !== "{{ user.firstname }}") {
+
+
+            // creating a new node and appending innerHTML in the 'messages' div
+            const newNode = document.createElement('div');
+
+            newNode.innerHTML = `
+            <div class=parent-container id='parent-container'>
+                <div class='username' id='username'></div>
+                <div class="container">
+                    <span>${data.username} has joined the chat</span>
+                </div>
+            </div>`
+            document.getElementById('messages').appendChild(newNode);
+
+            // for focusing to the bottom of the page
+            var scrollingElement = (document.scrollingElement || document.body);
+            scrollingElement.scrollTop = scrollingElement.scrollHeight;
+
+        }
+    });
+
+    socket.on('receive_message', function (data) {
+        console.log(data);
+        if(data.username !== "{{ user.firstname }}"){
+            // for getting the time
+            var d = new Date().toLocaleTimeString();
+
+          
+            const newNode = document.createElement('div');
+            newNode.innerHTML = `
+            <div class=parent-container id='parent-container'>
+                        <div class='username' id='username'><b>${data.username}</b> ${d} </div>
+                        <div class="container">
+                            <span>${data.message}</span>
+                        </div>
+            </div>`;
+            document.getElementById('messages').appendChild(newNode);
+            
+            // for focusing to the bottom of the page
+            var scrollingElement = (document.scrollingElement || document.body);
+            scrollingElement.scrollTop = scrollingElement.scrollHeight;
+        }       
+    });
+
+    // if the window is closed the leave_room event is called
+    window.onbeforeunload = function () {
+        socket.emit('leave_room', {
+            username: "{{ user.firstname | string() }}",
+            room: "{{ room_id | string() }}"
+        })
+    };
+
+    socket.on('leave_room_announcement', function (data) {
+        // console.log(data);
+            // creating a new node and appending innerHTML in the 'messages' div
+            const newNode = document.createElement('div');
+
+            newNode.innerHTML = `
+            <div class=parent-container id='parent-container'>
+                <div class='username' id='username'></div>
+                <div class="container">
+                    <span>${data.username} left the chat</span>
+                </div>
+            </div>`
+            document.getElementById('messages').appendChild(newNode);
+
+            // for focusing to the bottom of the page
+            var scrollingElement = (document.scrollingElement || document.body);
+            scrollingElement.scrollTop = scrollingElement.scrollHeight;
+
+        
+    });
+
+    // console.log(io.sockets.adapter.rooms.get('2').length)
+   
+
+
+</script>
+
+
+
+
+<!-- script for rendering different components -->
+<script 
+    type="text/javascript" 
+    src="{{url_for('static' , filename='chat-style.js')}}">
+</script>
+
+<!-- eventlistener group list -->
+<script
+    src = "{{url_for('static' , filename='grouplist.js')}}">
+</script>
 
 {% endblock %}

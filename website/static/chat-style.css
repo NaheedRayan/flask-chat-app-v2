@@ -1,0 +1,751 @@
+:root {
+    font-size: 16px;
+    font-family: "B612", serif;
+
+    --text-primary: #b6b6b6;
+    --text-secondary: #ececec;
+    --bg-primary: #23232e;
+    --bg-secondary: #141418;
+    --primary-accent: #08A080;
+    --secondary-accent: #88D0C0;
+
+
+    --orange-primary: #fd812e;
+    --orange-secondary: #FFCC00;
+
+
+    --chatui: #d5f1f1;
+
+}
+
+
+
+body {
+    font-family: "B612", serif;
+
+    color: black;
+    /* background-color: white; */
+    background-color: var(--chatui);
+    margin: 0;
+    padding: 0;
+}
+
+
+body::-webkit-scrollbar {
+    width: .25rem;
+}
+
+body::-webkit-scrollbar-track {
+    background: var(--secondary-accent);
+}
+
+body::-webkit-scrollbar-thumb {
+    background: var(--primary-accent);
+}
+
+main {
+    background-color: var(--chatui);
+    /* background-color: white; */
+}
+
+/* for mobile and tablets */
+@media screen and (min-width:320px) and (orientation:portrait) {
+    .left-navbar {
+        width: 100%;
+        height: 100vh;
+        position: fixed;
+
+        background-color: white;
+        transition: 200ms ease;
+
+    }
+
+
+
+    .left-navbar-nav {
+
+        background-color: white;
+        height: 70%;
+        
+        /* for stabilizing bug */
+        width: 100%;
+
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+        overflow: auto;
+
+    }
+
+    .left-navbar-nav::-webkit-scrollbar {
+        width: .25rem;
+    }
+
+    .left-navbar-nav::-webkit-scrollbar-track {
+        background: var(--secondary-accent);
+    }
+
+    .left-navbar-nav::-webkit-scrollbar-thumb {
+        background: var(--primary-accent);
+    }
+
+    .left-nav-item:hover {
+        background-color: var(--secondary-accent);
+
+    }
+
+    .left-nav-link {
+        display: flex;
+        align-items: center;
+        height: 2rem;
+        text-decoration: none;
+    }
+
+    .nav-link:hover {
+        background-color: #98d1ff;
+    }
+
+
+    .link-text {
+        color: rgba(0, 0, 0, 0.849);
+        font-weight: bold;
+        margin-left: 1rem;
+        margin-right: 1rem;
+
+        /* display: none;
+        visibility: hidden; */
+    }
+
+    /* This is Groupbox in the nav page */
+    .groupbox {
+        height: 10%;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: center;
+        padding: 5px;
+    }
+
+
+    .Chat-Groups {
+
+        font-size: xx-large;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: var(--primary-accent);
+
+
+        /* display: none;
+        visibility: hidden; */
+    }
+
+
+
+    .searchbox {
+        display: flex;
+        /* width:100%; */
+        flex-direction: row;
+        padding: 8px;
+        height: 50px;
+        align-items: center;
+    }
+
+    .search {
+        width: 78%;
+
+        height: 50px;
+        padding-left: 10px;
+        border-radius: 10px;
+        background-color: rgb(226, 226, 226);
+        border: 0;
+        outline: none;
+        margin-right: 5px;
+    }
+
+    .option {
+        width: 15%;
+
+        float: right;
+        height: 50px;
+        display: flex;
+        border-radius: 10px;
+
+        align-items: center;
+        justify-content: center;
+
+        font-size: xx-large;
+        font-weight: bold;
+        background-color: var(--secondary-accent);
+        /* color: var(--primary-accent); */
+        /* display: none;
+        visibility: hidden; */
+    }
+
+    /* for the icon */
+
+    .svg-icon {
+        width: 1em;
+        height: 1em;
+    }
+
+    .svg-icon path,
+    .svg-icon polygon,
+    .svg-icon rect {
+        fill: var(--primary-accent);
+    }
+
+    .svg-icon circle {
+        stroke: var(--primary-accent);
+        stroke-width: 1;
+    }
+
+
+    /* this is the open button on the top left corner */
+    .open_button {
+        left: 2%;
+        margin-top: 2%;
+        position: fixed;
+        opacity: 50%;
+        width: 50px;
+        height: 50px;
+        color: white;
+        background: var(--orange-secondary);
+        border-radius: 50px;
+
+        /* display: flex; */
+        align-items: center;
+        justify-content: center;
+
+        display: none;
+        visibility: hidden;
+
+    }
+
+    /* this is the close button on the top right corner */
+    .close_button {
+
+        right: 2%;
+        margin-top: 2%;
+        position: fixed;
+        opacity: 50%;
+        width: 50px;
+        height: 50px;
+        color: white;
+        background: var(--orange-secondary);
+        border-radius: 50px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        visibility: visible;
+    }
+
+    .chat-area {
+        left: 0;
+        top: 0;
+        margin-block-start: 80px;
+        margin-block-end: 70px;
+        background-color: var(--chatui);
+    }
+
+    .main-container {
+        /* margin-left: 0%; */
+        display: flex;
+        flex: auto;
+        flex-direction: column;
+        height: 100%;
+        /* overflow:hidden; */
+    }
+
+    /* Chat containers left*/
+    .container {
+        /* border: 2px solid #dedede; */
+        background-color: white;
+        box-shadow: 2px 3px #cce0e0;
+        border-radius: 10px;
+        padding: 10px;
+
+        word-wrap: break-word;
+
+    }
+
+    /* right */
+    .darker {
+        background-color: rgba(156, 156, 156, 0.315);
+        /* background-color: #b8f7fc; */
+        /* float: right; */
+        word-wrap: break-word;
+
+    }
+
+    /* Clear floats */
+    .container::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+
+    .parent-container {
+        width: 80%;
+        float: left;
+        margin-left: 3%;
+
+    }
+
+
+    .parent-container-right {
+        width: 80%;
+        float: right;
+        margin-right: 3%;
+    }
+
+    .username {
+        margin-left: 6px;
+        margin-top: 8px;
+        margin-bottom: 3px;
+        font-size: medium;
+        color: rgba(0, 0, 0, 0.678);
+    }
+
+    /* Style time text */
+    .time-right {
+        float: right;
+        color: #aaa;
+    }
+
+    /* Style time text */
+    .time-left {
+        float: left;
+        color: #aaa;
+    }
+
+
+
+    /* for the chat room name */
+    .room-name {
+
+        position: fixed;
+        background-color: var(--orange-secondary);
+        color: var(--orange-primary);
+
+        /* top: 0; */
+        right: 0; 
+        margin-top: 2%;
+        margin-right: 2%;
+        border-radius: 10px;
+        height: 50px;
+        align-items: center;
+
+        align-items: center;
+        padding-left: 8px;
+        padding-right: 8px;
+
+        /* display: flex; */
+        display: none;
+        visibility: hidden;
+
+    }
+
+
+
+    /* form */
+    .message_input_form {
+
+        position: fixed;
+
+        bottom: 0;
+        height: 45px;
+        width: 100%;
+        margin-bottom: 15px;
+
+        display: none;
+        visibility: hidden;
+
+    }
+
+    /* message input area */
+    .message_input {
+
+        margin-left: 15px;
+
+        height: 45px;
+        /* width: calc(77% - 78px); */
+        width: 70%;
+        border-radius: 10px;
+        padding-left: 8px;
+        border: 0;
+        outline: none;
+        font-size: large;
+
+        /* display: none;
+        visibility: hidden; */
+    }
+
+    .message_input_button {
+        /* width: 78px; */
+        width: 18%;
+        height: 45px;
+        background-color: var(--orange-secondary);
+        color: var(--orange-primary);
+        border: 0;
+        border-radius: 10px;
+        font-size: large;
+
+        /* display: none;
+        visibility: hidden; */
+
+    }
+
+}
+
+
+
+/* for desktop */
+@media screen and (min-width:961px) {
+    .left-navbar {
+
+        width: 20%;
+        /* display: none;
+        visibility: hidden; */
+        height: 100vh;
+        position: fixed;
+
+        background-color: white;
+        transition: 200ms ease;
+        /* border: 2px solid rgba(0, 0, 0, 0.39); */
+    }
+
+
+
+    .left-navbar-nav {
+
+        background-color: white;
+        max-height: 75vh;
+
+        /* margin-block-end: 100px; */
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+        overflow: auto;
+        /* border-top: 2px solid rgba(0, 0, 0, 0.39); */
+
+
+    }
+
+    .left-navbar-nav::-webkit-scrollbar {
+        width: .25rem;
+    }
+
+    .left-navbar-nav::-webkit-scrollbar-track {
+        background: var(--secondary-accent);
+    }
+
+    .left-navbar-nav::-webkit-scrollbar-thumb {
+        background: var(--primary-accent);
+    }
+
+    .left-nav-item {
+        border-radius: 10px;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    .left-nav-item:hover {
+        background-color: var(--secondary-accent);
+
+    }
+
+    .left-nav-link {
+        display: flex;
+        align-items: center;
+        height: 2rem;
+        text-decoration: none;
+    }
+
+    .link-text {
+        color: rgba(0, 0, 0, 0.849);
+        font-weight: bold;
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+
+    /* 
+    .link-text:hover{
+        color:rgb(69, 135, 189); 
+    } */
+
+
+
+    /* This is Groupbox in the nav page */
+    .groupbox {
+        height: 10%;
+        /* background-color:#b8b149; */
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        padding: 5px;
+    }
+
+
+    .Chat-Groups {
+
+        font-size: xx-large;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: var(--primary-accent);
+        /* display: none;
+        visibility: hidden; */
+    }
+
+
+
+    .searchbox {
+        display: flex;
+        flex-direction: row;
+        padding: 8px;
+        height: 50px;
+    }
+
+    .search {
+        width: 80%;
+
+        padding-left: 10px;
+        border-radius: 10px;
+        background-color: rgb(226, 226, 226);
+        border: 0;
+        outline: none;
+        margin-right: 5px;
+    }
+
+    .option {
+
+        display: flex;
+        border-radius: 10px;
+        width: 20%;
+        align-items: center;
+        justify-content: center;
+
+        font-size: xx-large;
+        font-weight: bold;
+        background-color: var(--secondary-accent);
+        /* color: var(--primary-accent); */
+        /* display: none;
+        visibility: hidden; */
+    }
+
+
+    /* for the icon */
+
+    .svg-icon {
+        width: 1em;
+        height: 1em;
+    }
+
+    .svg-icon path,
+    .svg-icon polygon,
+    .svg-icon rect {
+        fill: var(--primary-accent);
+    }
+
+    .svg-icon circle {
+        stroke: var(--primary-accent);
+        stroke-width: 1;
+    }
+
+    /* this is the open button on the top left corner */
+    .open_button {
+        left: 2%;
+        margin-top: 2%;
+        position: fixed;
+        opacity: 50%;
+        width: 50px;
+        height: 50px;
+        color: white;
+        background: #b8a449;
+        border-radius: 50px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        display: none;
+        visibility: hidden;
+
+    }
+
+    /* this is the close button on the top right corner */
+    .close_button {
+        float: right;
+        right: 2%;
+        margin-top: 2%;
+        position: fixed;
+        opacity: 50%;
+        width: 50px;
+        height: 50px;
+        color: white;
+        background: #b8b149;
+        border-radius: 50px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        visibility: hidden;
+        display: none;
+    }
+
+    .chat-area {
+
+        margin-block-start: 80px;
+        margin-block-end: 70px;
+        background-color: var(--chatui);
+        
+    }
+
+    .main-container {
+        margin-left: 20%;
+        display: flex;
+        flex: auto;
+        flex-direction: column;
+        height: 100%;
+        /* overflow:hidden; */
+    }
+
+    /* Chat containers left*/
+    .container {
+        /* border: 2px solid #dedede; */
+        background-color: white;
+        box-shadow: 2px 3px #cce0e0;
+        border-radius: 10px;
+        padding: 10px;
+
+        word-wrap: break-word;
+
+    }
+
+    /* right */
+    .darker {
+        background-color: rgba(156, 156, 156, 0.315);
+        /* background-color: #b8f7fc; */
+        /* float: right; */
+        word-wrap: break-word;
+
+    }
+
+    /* Clear floats */
+    .container::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+
+    .parent-container {
+        width: 80%;
+        float: left;
+        margin-left: 3%;
+
+    }
+
+
+    .parent-container-right {
+        width: 80%;
+        float: right;
+        margin-right: 3%;
+    }
+
+    .username {
+        margin-left: 6px;
+        margin-top: 8px;
+        margin-bottom: 3px;
+        font-size: large;
+        color: rgba(0, 0, 0, 0.678);
+    }
+
+    /* Style time text */
+    .time-right {
+        float: right;
+        color: #aaa;
+    }
+
+    /* Style time text */
+    .time-left {
+        float: left;
+        color: #aaa;
+    }
+
+
+
+    /* for the chat room name */
+    .room-name {
+
+        position: fixed;
+        background-color: var(--orange-secondary);
+        color: var(--orange-primary);
+
+        /* top: 0; */
+        right: 0;
+        margin-top: 2%;
+        margin-right: 2%;
+        border-radius: 10px;
+        height: 50px;
+        align-items: center;
+        display: flex;
+        align-items: center;
+        padding-left: 8px;
+        padding-right: 8px;
+
+    }
+
+
+
+    /* form */
+    .message_input_form {
+
+        position: fixed;
+
+        bottom: 0;
+        height: 45px;
+        width: 100%;
+        margin-bottom: 15px;
+
+    }
+
+    /* message input area */
+    .message_input {
+
+        margin-left: 15px;
+        ;
+        height: 45px;
+        width: calc(77% - 100px);
+        border-radius: 10px;
+        padding-left: 8px;
+        border: 0;
+        outline: none;
+        font-size: large;
+
+    }
+
+    .message_input_button {
+        width: 78px;
+        height: 45px;
+        background-color: var(--orange-secondary);
+        color: var(--orange-primary);
+        border: 0;
+        border-radius: 10px;
+        font-size: x-large;
+
+    }
+
+
+
+}

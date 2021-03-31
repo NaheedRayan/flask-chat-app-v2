@@ -13,13 +13,14 @@
         integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     
     <title>{% block title %}Home{% endblock %}</title>
+    {% block headlink %}{% endblock %}
 
 </head>
 
 <body>
 
     <!-- Navbar with custom background color -->
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #bcfcfc;">
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light " style="background-color: #bcfcfc;">
 
         <div class="container-fluid">
             <a class="navbar-brand" href="#">JnU Messenger</a>
@@ -83,17 +84,23 @@
 
     <!-- here we will create a div for content and customization -->
     <!-- we will override the content block in other html files -->
-    <div class="container">
-        {% block content %}
-        {% endblock %}
-    </div>
+    <!-- <div class="container"> -->
+        
+    {% block content %}
+    {% endblock %}
+    
 
+    
 
     <!-- Bootstrap Bundle with Popper -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
     </script>
+
+
+    <!-- This script is for flask socketio-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.5/socket.io.min.js"></script>
 </body>
 
 </html>

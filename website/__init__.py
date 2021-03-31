@@ -22,15 +22,19 @@ def create_app():
     # initializing the data base
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     # for debugging sql
-    app.config['SQLALCHEMY_ECHO'] = True
+    # app.config['SQLALCHEMY_ECHO'] = True
     db.init_app(app)
 
     # now for registering the blueprints
     from .views import views
     from .auth import auth
+    from .options import  opt
+   
 
     app.register_blueprint(views , url_prefix='/')
     app.register_blueprint(auth , url_prefix='/')
+    app.register_blueprint(opt , url_prefix='/')
+   
 
     # for creating database
     from .models import User , Room , Participant , Message

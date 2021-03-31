@@ -7,45 +7,45 @@
 <!-- Content block from base.html -->
 {% block content %}
 
+<div class='container'>
+    <form method="POST">
+        <br>
+        <h3 align="center">Sign Up</h3>
+        <br>
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email">
+        </div>
 
-<form method="POST">
-    <br>
-    <h3 align="center">Sign Up</h3>
-    <br>
-    <div class="form-group">
-        <label for="email">Email Address</label>
-        <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email">
-    </div>
+        <br>
+        <div class="form-group">
+            <label for="firstname">First Name</label>
+            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Enter Firstname">
+        </div>
 
-    <br>
-    <div class="form-group">
-        <label for="firstname">First Name</label>
-        <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Enter Firstname">
-    </div>
+        <br>
+        <div class="form-group">
+            <label for="lastname">Last Name</label>
+            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Enter Lastname">
+        </div>
 
-    <br>
-    <div class="form-group">
-        <label for="lastname">Last Name</label>
-        <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Enter Lastname">
-    </div>
+        <br>
+        <div class="form-group">
+            <label for="password1">Password</label>
+            <input type="password" class="form-control" id="password1" name="password1" placeholder="Enter Password">
+        </div>
 
-    <br>
-    <div class="form-group">
-        <label for="password1">Password</label>
-        <input type="password" class="form-control" id="password1" name="password1" placeholder="Enter Password">
-    </div>
+        <br>
+        <div class="form-group">
+            <label for="password2">Password (Confirm)</label>
+            <input type="password" class="form-control" id="password2" name="password2" placeholder="Confirm Password">
+        </div>
 
-    <br>
-    <div class="form-group">
-        <label for="password2">Password (Confirm)</label>
-        <input type="password" class="form-control" id="password2" name="password2" placeholder="Confirm Password">
-    </div>
-
-    <br>
-    <br>
-    <button type="submit" class="btn btn-primary">Submit</button>
+        <br>
+        <br>
+        <button type="submit" class="btn btn-primary">Submit</button>
 
 
-</form>
-
+    </form>
+</div>
 {% endblock %}

@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+
+{% block title %}Options{% endblock %}
+
+{% block headlink %}
+{% endblock %}
+<!-- Content block from base.html -->
+
+{% block content %}
+    <br>
+    <div class='container bg-light'>
+        <form method="POST">
+            <br>
+            <h3 align="center">Create Group</h3>
+            <br>
+            <br>
+            <div class="form-group">
+                <label for="groupname">Group Name</label>
+                <input type="text" class="form-control" id="groupname" name="groupname" placeholder="Enter Group Name">
+            </div>
+    
+            <br>
+            <div class="form-group">
+                <label for="groupsize">Group Size</label>
+                <input type="text" class="form-control" id="groupsize" name="groupsize" placeholder="Enter Group Size">
+            </div>
+
+            <br>
+            <br>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            
+        </form>
+        <br>
+    </div>
+
+    <br>
+
+    <div class='container bg-light'>
+        <form method="POST">
+            <br>
+            <h3 align="center">Join Group</h3>
+            <br>
+     
+            <div class="form-group">
+                <label for="joingroup">Group Name</label>
+                <input type="text" class="form-control" id="joingroup" name="joingroup" placeholder="Enter Group Name">
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            
+        </form>
+        <br>
+    </div>
+
+    <br>
+
+    <div class='container bg-light'>
+        <form method="POST">
+            <br>
+            <h3 align="center">Leave Group</h3>
+            <br>
+            <div class="form-group">
+                <label for="leavegroup">Group Name</label>
+                <input type="text" class="form-control" id="leavegroup" name="leavegroup" placeholder="Enter Group Name">
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            
+        </form>
+        <br>
+    </div>
+
+    <br>
+
+    
+
+{% endblock %}

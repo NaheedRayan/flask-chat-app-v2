@@ -75,19 +75,7 @@ def signup():
             db.session.add(new_user)
             db.session.commit()
 
-            # getting the id of the new_user
-            user = User.query.filter_by(email = email).first()
-
-            # since the id is unique we will create a default personal room
-            room = Room(roomid = user.id , userid = user.id)
-            db.session.add(room)
-            db.session.commit()
-
-            room = Room.query.filter_by(roomid = user.id).first()
-            # now we will query for romm id and store it in participant model
-            participant = Participant(userid = user.id , roomid = room.id)
-            db.session.add(participant)
-            db.session.commit()
+           
 
             flash('Account Created' , category='success')
             print(request.form)
