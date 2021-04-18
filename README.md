@@ -68,7 +68,7 @@ For database
 
 ## Database Schema
 
-![](images/03.png)
+![](images/02.png)
 
 
 <br>
@@ -92,8 +92,8 @@ from flask_login import UserMixin
 from sqlalchemy.sql import func
 
 
-# The User will inherit database model and UserMixin . The UserMixin is for authentication
-# purpose
+
+# The User will inherit database model and UserMixin . The UserMixin is for authentication purpose
 class User(db.Model , UserMixin):
     id = db.Column(db.Integer , primary_key = True)
     email = db.Column(db.String(150) , unique = True)
@@ -126,16 +126,19 @@ class Room(db.Model):
 class Participant(db.Model):
     id = db.Column(db.Integer , primary_key = True)
     userid = db.Column(db.String(150),db.ForeignKey('user.id'))
-    roomid = db.Column(db.String(150),db.ForeignKey('room.roomid'))
+    roomid = db.Column(db.String(150),db.ForeignKey('room.id'))
+    # i cant relate it with Rooms roomid
+    roomname = db.Column(db.String(150))
+    
 
 class Message(db.Model):
     id = db.Column(db.Integer , primary_key = True)
     date = db.Column(db.DateTime(timezone=True), default = func.now())
     message = db.Column(db.String(10000))
+    username = db.Column(db.String(100))
     userid = db.Column(db.String(150),db.ForeignKey('user.id'))
-    roomid = db.Column(db.String(150),db.ForeignKey('room.roomid'))
+    roomid = db.Column(db.String(150),db.ForeignKey('room.id'))
     
-
 ```
 
 <br>

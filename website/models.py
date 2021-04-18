@@ -4,8 +4,7 @@ from sqlalchemy.sql import func
 
 
 
-# The User will inherit database model and UserMixin . The UserMixin is for authentication
-# purpose
+# The User will inherit database model and UserMixin . The UserMixin is for authentication purpose
 class User(db.Model , UserMixin):
     id = db.Column(db.Integer , primary_key = True)
     email = db.Column(db.String(150) , unique = True)
